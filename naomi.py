@@ -63,10 +63,11 @@ def on_message(data):
 		hm[0] = vrem
 
 	if data.message.content != None and data.message.type in [1, 50, 58, 57, 59, 100, 101, 102, 103, 104, 105, 106, 107, 109, 110, 113, 114, 115, 116, 124, 125, 126]:
+		sub_client.send_message(message='Рейдеры пошлены нахуй11!', chatId=data.message.chatId)
+		sub_client.kick(userId=data.message.author.userId, chatId=data.message.chatId, allowRejoin = True)
+	if data.message.type == 101 and nom == 0 and data.message.content == None:
 		sub_client.send_message(message='Рейдеры пошлены нахуй!', chatId=data.message.chatId)
 		sub_client.kick(userId=data.message.author.userId, chatId=data.message.chatId, allowRejoin = True)
-	if data.message.content == None and nom == 1:
-		sub_client.send_message(message='Добро пожаловать!', chatId=data.message.chatId)
 		nom = 0
 
 methods = []
