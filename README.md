@@ -1,2 +1,2 @@
-# AminoBot by AkihikoKen
-Bot for Amino (Бот для Амино)
+# AminoBot ver.0.5 by AkihikoKen
+Bot for Amino (Р‘РѕС‚ РґР»СЏ РђРјРёРЅРѕ)
