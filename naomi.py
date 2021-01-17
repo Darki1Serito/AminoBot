@@ -1,4 +1,4 @@
-### Bot Amino Naomi version 0.1 by Akihiko Ken 
+### Bot Amino Naomi version 0.5 by Akihiko Ken 
 import amino
 import random
 import re
@@ -6,7 +6,7 @@ import datetime
 
 client = amino.Client()
 client.login(email="secret", password="se4") #вводим пароль и почту от аккаунта бота
-sub_client = amino.SubClient(comId='156542274', profile=client.profile) #вместо "id" введите айди сообщества, в котором будет работать чат
+sub_client = amino.SubClient(comId='comId', profile=client.profile) #вместо "id" введите айди сообщества, в котором будет работать чат
 ban = 0
 tim = 1
 hm = [0]
@@ -35,11 +35,6 @@ def on_message(data):
 		sub_client.send_message(message=(f"Вероятность любви между {tex[1]} и {tex[3]} равна {random.randint(0,100)}%"), chatId=chatId, replyTo=id)
 	if content[0][0] == "!" and content[0][1:].lower() == "on":
 		tim = -tim
-	##if str(datetime.datetime.today())[11:13] == str(23) and tim == 1:
-		##sub_client.send_message(message="Спокойной ночи, милашки.", chatId=chatId) ## Приветствие
-	##if str(datetime.datetime.today())[11:13] == str("07") and tim == 1:
-		##sub_client.send_message(message="Доброе утро, милашки.", chatId=chatId) # Приветствие
-
 	##################################Защита чата##################################################
 	if content[0][0] == "!":
 		if content[0][1:].lower() == "save":
