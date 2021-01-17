@@ -8,14 +8,12 @@ client = amino.Client()
 client.login(email="secret", password="se4") #вводим пароль и почту от аккаунта бота
 sub_client = amino.SubClient(comId='comId', profile=client.profile) #вместо "id" введите айди сообщества, в котором будет работать чат
 ban = 0
-tim = 1
 hm = [0]
 av = []
 nom = 0
 
 def on_message(data):
 	global ban
-	global tim
 	global nom
 	chatId = data.message.chatId
 	nickname = data.message.author.nickname
@@ -33,8 +31,6 @@ def on_message(data):
 	if content[0][0] == "!" and content[0][1:].lower() == "love":
 		tex = re.split('[' + re.escape("@, ") + ']+', content)
 		sub_client.send_message(message=(f"Вероятность любви между {tex[1]} и {tex[3]} равна {random.randint(0,100)}%"), chatId=chatId, replyTo=id)
-	if content[0][0] == "!" and content[0][1:].lower() == "on":
-		tim = -tim
 	##################################Защита чата##################################################
 	if content[0][0] == "!":
 		if content[0][1:].lower() == "save":
