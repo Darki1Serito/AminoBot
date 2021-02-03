@@ -1,4 +1,4 @@
-### Bot Amino Naomi version 0.5 by Akihiko Ken 
+### Bot Amino Naomi version 0.5.2 by Akihiko Ken 
 import amino
 import random
 import re
@@ -31,6 +31,11 @@ def on_message(data):
 	if content[0][0] == "!" and content[0][1:].lower() == "love":
 		tex = re.split('[' + re.escape("@, ") + ']+', content)
 		sub_client.send_message(message=(f"Вероятность любви между {tex[1]} и {tex[3]} равна {random.randint(0,100)}%"), chatId=chatId, replyTo=id)
+	if content[0][0] == "!" and content[0][1:].lower() == "гс":
+		myobj = gTTS(text=data.message.content[4:], lang='ru', slow=False)
+		myobj.save("gs.mp3")
+		with open("gs.mp3", "rb") as file:
+			sub_client.send_message(chatId=chatId, file=file, fileType="audio")
 	##################################Защита чата##################################################
 	if content[0][0] == "!":
 		if content[0][1:].lower() == "save":
