@@ -1,25 +1,43 @@
-### Bot Amino Naomi version 0.5.2 by Akihiko Ken 
+### Bot Amino Naomi version 0.6 by Akihiko Ken 
 import amino
 import random
-import re
 import datetime
+from gtts import gTTS
+import nekos
+import requests
+import os
 
 client = amino.Client()
-client.login(email="secret", password="se4") #вводим пароль и почту от аккаунта бота
-sub_client = amino.SubClient(comId='comId', profile=client.profile) #вместо "id" введите айди сообщества, в котором будет работать чат
+client.login(email="secret", password="secret") #вводим пароль и почту от аккаунта бота
+sub_client = amino.SubClient(comId='secret', profile=client.profile) #вместо "id" введите айди сообщества, в котором будет работать чат
 ban = 0
+tim = 1
 hm = [0]
 av = []
 nom = 0
 
+
 def on_message(data):
 	global ban
+	global tim
 	global nom
 	chatId = data.message.chatId
 	nickname = data.message.author.nickname
 	content = data.message.content
 	vrem = data.message.createdTime[17:19]
 	id = data.message.messageId
+
+	def hentai(a):
+		url = nekos.img(str(a))
+		response = requests.get(url, stream=True)
+		name = url.split('/')[-1]
+		file = open(name, 'bw') #Бинарный режим, изображение передається байтами
+		for chunk in response.iter_content(4096): # Записываем в файл по блочно данные
+			file.write(chunk)
+		with open(name, "rb") as file:
+			sub_client.send_message(chatId=chatId, file=file, fileType="image")
+		os.remove(str(name))
+
 	print(f"{nickname}: {content}: {chatId} : {ban}: {data.message.type}") # вывод в консоль сообщений и автора этих сообщений
 	lis = ['Думаю, да', 'Думаю что нет']
 	
@@ -29,14 +47,31 @@ def on_message(data):
 	if content[0][0] == "?":
 		sub_client.send_message(message=str(random.choice(lis)), chatId=chatId, replyTo=id)
 	if content[0][0] == "!" and content[0][1:].lower() == "love":
-		tex = re.split('[' + re.escape("@, ") + ']+', content)
-		sub_client.send_message(message=(f"Вероятность любви между {tex[1]} и {tex[3]} равна {random.randint(0,100)}%"), chatId=chatId, replyTo=id)
+		sub_client.send_message(message=(f"Вероятность любви между {content[1]} и {content[3]} равна {random.randint(0,100)}%"), chatId=chatId, replyTo=id)
 	if content[0][0] == "!" and content[0][1:].lower() == "гс":
 		myobj = gTTS(text=data.message.content[4:], lang='ru', slow=False)
 		myobj.save("gs.mp3")
 		with open("gs.mp3", "rb") as file:
 			sub_client.send_message(chatId=chatId, file=file, fileType="audio")
+	if content[0][0] == "!" and content[0][1:].lower() == "on":
+		tim = -tim
+	if content[0][0] == "!" and content[0][1:].lower() == "хентыч":
+		if content[1] == "юри":
+			hentai("yuri")
+		if content[1] == "ножки":
+			hentai("feet")
+		if content[1] == "трап":
+			hentai("trap")
+		if content[1] == "тить":
+			hentai("tits")
+		if content[1] == "эротиш":
+			hentai("ero")
+
 	##################################Защита чата##################################################
+	global nazvan
+	global opisan
+	global fonsss
+
 	if content[0][0] == "!":
 		if content[0][1:].lower() == "save":
 			nazvan = sub_client.get_chat_thread(chatId=data.message.chatId).title
@@ -74,7 +109,6 @@ def on_message(data):
 		sub_client.send_message(message='Рейдеры пошлены нахуй!', chatId=data.message.chatId)
 		sub_client.kick(userId=data.message.author.userId, chatId=data.message.chatId, allowRejoin = True)
 		nom = 0
-
 methods = []
 for x in client.callbacks.chat_methods:
 	methods.append(client.callbacks.event(client.callbacks.chat_methods[x].__name__)(on_message))
