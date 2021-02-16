@@ -1,4 +1,4 @@
-# AminoBot ver.0.5 by AkihikoKen
+# AminoBot ver.0.6 by AkihikoKen
 Bot for Amino (Бот для Амино)
 
 # Release 0.5
