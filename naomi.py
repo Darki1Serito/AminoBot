@@ -9,7 +9,7 @@ import os
 
 client = amino.Client()
 client.login(email="nikpaint@vk.com", password="Nik08rus") #вводим пароль и почту от аккаунта бота
-sub_client = amino.SubClient(comId='UiutnyiUgolo592', profile=client.profile) #вместо "id" введите айди сообщества, в котором будет работать чат
+sub_client = amino.SubClient(comId='AnyWorld657', profile=client.profile) #вместо "id" введите айди сообщества, в котором будет работать чат
 ban = 0
 tim = 1
 hm = [0]
