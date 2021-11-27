@@ -90,7 +90,7 @@ def on_message(data):
 			sub_client.invite_to_chat(userId=str(client.get_from_code(str(content[1][:])).objectId), chatId=chatId)
 			nom = 1
 
-	 if ANTI_SPAM.get(userid) is None:
+	 if ANTI_SPAM.get(userid) is 2:
                ANTI_SPAM[userid] = {"warns": 1, "last_time": message_time}
          else:
                now = datetime.datetime.now(tz=pytz.timezone("Europe/London"))
